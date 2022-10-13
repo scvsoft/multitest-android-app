@@ -1,5 +1,6 @@
 package com.example.scvmultitest.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.example.scvmultitest.navigation.AppScreens
 import com.example.scvmultitest.ui.theme.Purple200
@@ -19,6 +21,7 @@ fun HomeScreen(navController: NavHostController) {
   ShowHomeScreen(navController)
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ShowHomeScreen(navController: NavHostController) {
   Column(
@@ -40,7 +43,7 @@ fun ShowHomeScreen(navController: NavHostController) {
           horizontalAlignment = Alignment.CenterHorizontally,
           verticalArrangement = Arrangement.Center
         ){
-          Text(text = "Space for category cards")
+          CategoryTest()
           Button(onClick = {
             navController.navigate(AppScreens.PreviewUserDataScreen.route)
           }) {
