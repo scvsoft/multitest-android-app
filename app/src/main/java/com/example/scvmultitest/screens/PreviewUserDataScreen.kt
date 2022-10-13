@@ -7,10 +7,13 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.example.scvmultitest.R
 import com.example.scvmultitest.navigation.AppScreens
 import com.example.scvmultitest.ui.theme.Purple200
 
@@ -27,6 +30,13 @@ fun ShowPreviewUserDataScreen(navController: NavHostController){
     verticalArrangement = Arrangement.Center
   ) {
     val scaffoldState = rememberScaffoldState()
+    var selectedAge by rememberSaveable { mutableStateOf("") }
+    var selectedGender by rememberSaveable { mutableStateOf("") }
+    var selectedTime by rememberSaveable { mutableStateOf("") }
+    val ageItems = stringArrayResource(id = R.array.age_array)
+    val genderItems = stringArrayResource(id = R.array.gender_array)
+    val timeItems = stringArrayResource(id = R.array.time_array)
+
     Scaffold(
       scaffoldState = scaffoldState,
       topBar = {
@@ -51,16 +61,29 @@ fun ShowPreviewUserDataScreen(navController: NavHostController){
           horizontalAlignment = Alignment.CenterHorizontally,
           verticalArrangement = Arrangement.Center
         ){
-          val ageItems = listOf("Under 20", "21-40 years old", "40-65 years old", "65+ years old")
-          val genderItems = listOf("Male", "Female", "Others")
-          val timeItems = listOf("Short test (5 minutes)", "Standard (10 minutes)", "Recommended (+20 minutes)")
-          Select(ageItems)
-          Select(genderItems)
-          Select(timeItems)
+
+          Select(
+            ageItems,
+            stringResource(id = R.string.age_category),
+            selectedAge,
+            onValueChange = { }
+          )
+          Select(
+            genderItems,
+            stringResource(id = R.string.gender),
+            selectedGender,
+            onValueChange = { }
+          )
+          Select(
+            timeItems,
+            stringResource(id = R.string.time_to_fill_out_the_test),
+            selectedTime,
+            onValueChange = { }
+          )
           Button(onClick = {
             //navController.navigate(AppScreens...)
           }) {
-            Text(text = "Start anonymous test")
+            Text(stringResource(id = R.string.start_test))
           }
         }
       },
@@ -70,9 +93,14 @@ fun ShowPreviewUserDataScreen(navController: NavHostController){
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Select(options: List<String>) {
+fun Select(
+  options: Array<String>,
+  selectedItem: String,
+  label: String,
+  onValueChange: (String) -> Unit
+) {
   var expanded by remember { mutableStateOf(false) }
-  var selectedOptionText by remember { mutableStateOf("") }
+
   ExposedDropdownMenuBox(
     expanded = expanded,
     onExpandedChange = {
@@ -80,9 +108,12 @@ fun Select(options: List<String>) {
     }
   ) {
     TextField(
-      value = selectedOptionText,
-      onValueChange = { selectedOptionText = it },
-      label = { Text("Label") },
+      value = selectedItem,
+      readOnly = true,
+      onValueChange = {
+        onValueChange(it)
+      },
+      label = { Text(label) },
       trailingIcon = {
         ExposedDropdownMenuDefaults.TrailingIcon(
           expanded = expanded
@@ -90,25 +121,20 @@ fun Select(options: List<String>) {
       },
       colors = ExposedDropdownMenuDefaults.textFieldColors()
     )
-    // filter options based on text field value
-    val filteringOptions =
-      options.filter { it.contains(selectedOptionText, ignoreCase = true) }
-    if (filteringOptions.isNotEmpty()) {
-      ExposedDropdownMenu(
-        expanded = expanded,
-        onDismissRequest = {
-          expanded = false
-        }
-      ) {
-        filteringOptions.forEach { selectionOption ->
-          DropdownMenuItem(
-            onClick = {
-              selectedOptionText = selectionOption
-              expanded = false
-            }
-          ) {
-            Text(text = selectionOption)
+    ExposedDropdownMenu(
+      expanded = expanded,
+      onDismissRequest = {
+        expanded = false
+      }
+    ) {
+      options.forEach { selectionOption ->
+        DropdownMenuItem(
+          onClick = {
+            //selectedOptionText = selectionOption
+            expanded = false
           }
+        ) {
+          Text(text = selectionOption)
         }
       }
     }
