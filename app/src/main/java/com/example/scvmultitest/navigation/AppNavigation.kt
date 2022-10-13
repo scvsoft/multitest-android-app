@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.scvmultitest.screens.HomeScreen
 import com.example.scvmultitest.screens.SplashScreen
+import com.example.scvmultitest.screens.PreviewUserDataScreen
 import com.example.scvmultitest.screens.TestSelection
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -22,6 +23,9 @@ fun AppNavigation(){
     }
     composable(route = AppScreens.HomeScreen.route){
       HomeScreen(navController)
+    }
+    composable(route = AppScreens.PreviewUserDataScreen.route){
+      PreviewUserDataScreen(navController)
     }
     composable(route = AppScreens.TestSelectionScreen.route){
       TestSelection()
