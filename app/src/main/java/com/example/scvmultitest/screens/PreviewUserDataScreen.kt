@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.example.scvmultitest.R
+import com.example.scvmultitest.Select
 import com.example.scvmultitest.navigation.AppScreens
 import com.example.scvmultitest.ui.theme.Purple200
 
@@ -55,86 +56,41 @@ fun ShowPreviewUserDataScreen(navController: NavHostController){
           }
         )
       },
-      content = {
-        Column(
-          modifier = Modifier.fillMaxSize(),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.Center
-        ){
-
-          Select(
-            ageItems,
-            stringResource(id = R.string.age_category),
-            selectedAge,
-            onValueChange = { }
-          )
-          Select(
-            genderItems,
-            stringResource(id = R.string.gender),
-            selectedGender,
-            onValueChange = { }
-          )
-          Select(
-            timeItems,
-            stringResource(id = R.string.time_to_fill_out_the_test),
-            selectedTime,
-            onValueChange = { }
-          )
-          Button(onClick = {
-            //navController.navigate(AppScreens...)
-          }) {
-            Text(stringResource(id = R.string.start_test))
-          }
-        }
-      },
-    )
-  }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun Select(
-  options: Array<String>,
-  selectedItem: String,
-  label: String,
-  onValueChange: (String) -> Unit
-) {
-  var expanded by remember { mutableStateOf(false) }
-
-  ExposedDropdownMenuBox(
-    expanded = expanded,
-    onExpandedChange = {
-      expanded = !expanded
-    }
-  ) {
-    TextField(
-      value = selectedItem,
-      readOnly = true,
-      onValueChange = {
-        onValueChange(it)
-      },
-      label = { Text(label) },
-      trailingIcon = {
-        ExposedDropdownMenuDefaults.TrailingIcon(
-          expanded = expanded
-        )
-      },
-      colors = ExposedDropdownMenuDefaults.textFieldColors()
-    )
-    ExposedDropdownMenu(
-      expanded = expanded,
-      onDismissRequest = {
-        expanded = false
-      }
     ) {
-      options.forEach { selectionOption ->
-        DropdownMenuItem(
-          onClick = {
-            //selectedOptionText = selectionOption
-            expanded = false
+      Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+      ) {
+
+        Select(
+          ageItems,
+          stringResource(id = R.string.age_category),
+          selectedAge,
+          onValueChange = {
+            selectedAge = it
           }
-        ) {
-          Text(text = selectionOption)
+        )
+        Select(
+          genderItems,
+          stringResource(id = R.string.gender),
+          selectedGender,
+          onValueChange = {
+            selectedGender = it
+          }
+        )
+        Select(
+          timeItems,
+          stringResource(id = R.string.time_to_fill_out_the_test),
+          selectedTime,
+          onValueChange = {
+            selectedTime = it
+          }
+        )
+        Button(onClick = {
+          //navController.navigate(AppScreens...)
+        }) {
+          Text(stringResource(id = R.string.start_test))
         }
       }
     }
