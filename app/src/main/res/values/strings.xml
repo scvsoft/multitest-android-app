@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">SCVMultitest</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="age_array">
+        <item>Under 20</item>
+        <item>21-40 years old</item>
+        <item>40-65 years old</item>
+        <item>65+ years old</item>
+    </string-array>
+    <string-array name="time_array">
+        <item>Short test (5 minutes)</item>
+        <item>Standard (10 minutes)</item>
+        <item>Recommended (+20 minutes)</item>
+    </string-array>
+
+    <string name="start_test">Start anonymous test</string>
+    <string name="age_category">Age category</string>
+    <string name="gender">Gender</string>
+    <string name="time_to_fill_out_the_test">Time to fill out the test</string>
 </resources>
