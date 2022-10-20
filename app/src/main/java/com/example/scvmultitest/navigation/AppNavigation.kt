@@ -25,8 +25,12 @@ fun AppNavigation(){
       PreviewUserDataScreen(navController)
     }
     composable(route = AppScreens.CategoryTestScreen.route){
-      CategoryTest()
+      CategoryTest(navController)
     }
+    composable(route = AppScreens.FirstCoupleTestScreen.route){
+      FirstCoupleTest(navController)
+    }
+
   }
 
 }
