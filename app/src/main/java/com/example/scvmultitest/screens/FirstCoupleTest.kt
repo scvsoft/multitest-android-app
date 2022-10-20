@@ -24,23 +24,17 @@ fun FirstCoupleTest(navController: NavHostController) {
             }
         }
     }
-    Box() {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Button(onClick = {
-                navController.navigate(AppScreens.HomeScreen.route)
-            }) {
-                Text(text = "Go to category test screen")
-            }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        Button(onClick = {
+            navController.navigate(AppScreens.HomeScreen.route)
+        }) {
+            Text(text = "Go to category test screen")
         }
     }
-
-
-
-
 }
 
 @Composable
@@ -50,7 +44,7 @@ fun QuestionItem(question: Question, navController: NavHostController) {
     ){
         Row(
             verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         )
         {
             Text(text = " Question ${question.id}")
